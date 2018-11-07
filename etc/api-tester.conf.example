@@ -1,0 +1,95 @@
+---
+destination: tfl
+auth: no_auth
+client_timeout: 60
+sleep: 20
+users: 1
+log_level: info
+stats_host: 127.0.0.1
+stats_port: 8099
+journeys:
+  -
+    name: air_quality
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /AirQuality?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: to_and_from_journey
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /Journey/JourneyResults/liverpool%20street/to/ealing%20broadway?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+      -
+        method: GET
+        endpoint: /Journey/JourneyResults/northwood/to/london%20bridge?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: severity_codes
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /Line/Meta/Severity?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: distruption_categories
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /Line/Meta/DisruptionCategories?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: service_types
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /Line/Meta/ServiceTypes?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: active_service_types
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /Mode/ActiveServiceTypes?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []
+
+  -
+    name: combine_all
+    setup: []
+    requests:
+      -
+        method: GET
+        endpoint: /AirQuality?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+      -
+        method: GET
+        endpoint: /Line/Meta/Severity?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+      -
+        method: GET
+        endpoint: /Line/Meta/ServiceTypes?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+      -
+        method: GET
+        endpoint: /Mode/ActiveServiceTypes?app_id=your_app_id&app_key=your_app_key
+        payload: nil
+    cleanup: []

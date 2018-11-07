@@ -1,0 +1,4 @@
+---
+host: "api_host:port"
+username: "api_username"
+password: "api_password"
